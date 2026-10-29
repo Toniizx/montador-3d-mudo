@@ -43,19 +43,19 @@ button:disabled{opacity:.35;cursor:default}
 .chapters{display:none}
 
 /* Visualizador 3D */
-.viewer{flex:none;position:relative;height:var(--vh,38svh);min-height:140px;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#283547 0%,#192230 50%,#101823 95%);touch-action:none}
+.viewer{flex:none;position:relative;height:var(--vh,43svh);min-height:140px;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#283547 0%,#192230 50%,#101823 95%);touch-action:none}
 #scene{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;-webkit-user-select:none;user-select:none;cursor:grab}
 #scene:active{cursor:grabbing}
 .viewer-head{position:absolute;top:8px;left:8px;right:8px;display:flex;gap:6px;align-items:flex-start;pointer-events:none}
 .view-label{min-width:0;flex:0 1 auto;margin-right:auto;background:#0e1621cc;border:1px solid #35485b;border-radius:10px;padding:7px 10px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .view-label strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.view-label small{display:none;font-size:11px;color:#a9c0d2;margin-top:3px}
+.view-label small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px;color:#a9c0d2;margin-top:3px}
 .vbtn{pointer-events:auto;flex:none;width:40px;height:40px;border-radius:11px;border:1px solid #3a4d62;background:#152333e0;display:grid;place-items:center;font-size:16px;padding:0;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .vbtn:active{background:#24405a}
 .vbtn.on{background:#1f5470;border-color:var(--blue)}
 .view-controls{position:absolute;right:8px;top:56px;display:flex;flex-direction:column;gap:6px}
 .view-controls .wide-only{display:none}
-.viewer.compact .view-controls{display:none}
+.viewer.compact .view-controls,.viewer.compact .view-label small{display:none}
 .playbar{position:absolute;left:8px;right:8px;bottom:8px;display:flex;align-items:center;gap:8px;background:#0f1924e6;border:1px solid #384657;border-radius:13px;padding:5px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .playbar .vbtn{border:0;background:#1f3042}
 .scrubwrap{flex:1;min-width:0;display:flex;flex-direction:column}
@@ -244,10 +244,10 @@ button:disabled{opacity:.35;cursor:default}
   <aside class="chapters"><h2>Etapas do manual</h2><div id="chapters"></div><div class="chapters-foot" id="progressCaption"></div></aside>
   <main class="viewer" id="viewer">
    <canvas id="scene" aria-label="Modelo 3D interativo do criado-mudo. Arraste para girar e faça pinça para aproximar."></canvas>
-   <div class="viewer-head"><div class="view-label"><strong id="modelTitle">Visão geral</strong><small>Arraste para girar · pinça ou roda para zoom · toque duplo centraliza</small></div><button class="vbtn" id="expandBtn" aria-label="Ampliar o 3D em tela cheia" title="Tela cheia">⤢</button></div>
+   <div class="viewer-head"><div class="view-label"><strong id="modelTitle">Visão geral</strong><small id="modelHint">Azul = peças desta tarefa · 2 dedos: zoom e mover</small></div><button class="vbtn" id="expandBtn" aria-label="Ampliar o 3D em tela cheia" title="Tela cheia">⤢</button></div>
    <div class="view-controls">
-    <button class="vbtn" id="frontBtn" aria-label="Vista frontal" title="Vista frontal">▣</button>
-    <button class="vbtn" id="isoBtn" aria-label="Vista em perspectiva" title="Perspectiva">◇</button>
+    <button class="vbtn" id="frontBtn" aria-label="Centralizar a tarefa" title="Centralizar">◎</button>
+    <button class="vbtn" id="isoBtn" aria-label="Girar 90 graus" title="Girar 90°" style="font-size:12px;font-weight:800">90°</button>
     <button class="vbtn wide-only" id="topBtn" aria-label="Vista de cima" title="Vista de cima">▤</button>
     <button class="vbtn" id="zoomInBtn" aria-label="Aproximar" title="Aproximar">＋</button>
     <button class="vbtn" id="zoomOutBtn" aria-label="Afastar" title="Afastar">−</button>
@@ -292,7 +292,7 @@ button:disabled{opacity:.35;cursor:default}
  <label class="toggle"><span>Nomes das peças no 3D<small>Etiquetas sobre as peças da tarefa</small></span><input type="checkbox" class="switch" id="labelsToggle"></label>
  <div class="help">
   <h3>Modelo 3D</h3>
-  <ul><li>Arraste com um dedo para girar.</li><li>Use dois dedos (pinça) para aproximar ou afastar.</li><li>Toque duas vezes no 3D para voltar à vista da tarefa.</li><li>⤢ abre o 3D em tela cheia, com vista de cima e peças separadas.</li><li>Arraste a barrinha abaixo do 3D para deixá-lo maior ou menor.</li></ul>
+  <ul><li>Arraste com um dedo para girar.</li><li>Use dois dedos: abra/feche para zoom e arraste para mover a vista.</li><li>◎ ou toque duplo no 3D reenquadra as peças da tarefa. 90° gira o móvel.</li><li>Peças em azul são as desta tarefa; etiquetas douradas mostram quantos parafusos/ferragens usar.</li><li>⤢ abre o 3D em tela cheia, com vista de cima e peças separadas.</li><li>Arraste a barrinha abaixo do 3D para deixá-lo maior ou menor.</li></ul>
   <h3>Instruções</h3>
   <ul><li>Marque cada ação conforme for fazendo; o progresso fica salvo neste aparelho.</li><li>Deslize o texto para os lados para trocar de tarefa.</li><li>Toque nos desenhos e ferragens para ampliar e use pinça para ver os detalhes.</li><li>No iPhone: Safari → Compartilhar → <b>Adicionar à Tela de Início</b> para usar como app, inclusive sem internet.</li></ul>
   <p class="warn">O 3D é ilustrativo e não substitui os furos e posições exatos impressos no manual. Antes de parafusar, confira a peça física e o desenho original.</p>
@@ -492,19 +492,54 @@ function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show')
 
 // ---------- Câmera e desenho ----------
 // Peças destacadas em cada tarefa (mesma ordem de STEPS).
-const FOCUS=[[],['top','N'],['left','right','L0','L1','M0','M1','Esideleft','Esideright'],['A','I','Cpre'],['d0front','d0left','d0right','Bdrawer0'],['d1front','d1left','d1right','Bdrawer1'],['d0back','d0bottom','d1back','d1bottom','Qdrawer'],['d0handle','d1handle','Hdrawer','Fdrawer'],['d0J','d0K','d1J','d1K','Ddrawer'],['right','bar4a','bar4b','base5','back6','Bframe4'],['shelf13','Bframe5'],['left','Bframe6'],['top','Otop','Ptop'],['back12','Gnails'],['L0','L1','M0','M1','Eadjust'],['d0front','d0handle'],['d1front','d1handle'],[]];
+const FOCUS=[[],['top','N'],['left','right','L0','L1','M0','M1','Esideleft','Esideright'],['right','A','I','Cpre'],['d0front','d0left','d0right','Bdrawer0'],['d1front','d1left','d1right','Bdrawer1'],['d0back','d0bottom','d1back','d1bottom','Qdrawer'],['d0handle','d1handle','Hdrawer','Fdrawer'],['d0J','d0K','d1J','d1K','Ddrawer'],['right','bar4a','bar4b','base5','back6','Bframe4'],['shelf13','Bframe5'],['left','Bframe6'],['top','Otop','Ptop'],['back12','Gnails'],['L0','L1','M0','M1','Eadjust'],['d0front','d0handle'],['d1front','d1handle'],[]];
+// Arranjo das tarefas de pré-montagem: só aparecem as peças da tarefa, viradas para a câmera.
+const STAGE={
+ 1:{show:['top','N'],pose:{N:{off:[0,.32,0]}},cam:{yaw:.55,pitch:.8}},
+ 2:{show:['left','right','L0','L1','M0','M1','Esideleft','Esideright'],pose:{left:{pos:[0,3.12,2.2]},right:{pos:[0,3.12,-2.2],r:Math.PI}},cam:{yaw:-1.2,pitch:.2}},
+ 3:{show:['right','A','I','Cpre'],pose:{right:{pos:[0,3.12,0],r:Math.PI}},cam:{yaw:-1.1,pitch:.22}}
+};
 const GRAIN=new Set(['top','left','right','shelf13','bar4a','bar4b','base5','back6','back12']);
+const rotY=(v,a)=>{if(!a)return v;const c=Math.cos(a),s=Math.sin(a);return [v[0]*c+v[2]*s,v[1],-v[0]*s+v[2]*c]};
+function inScene(o,st){const S=STAGE[st];
+ if(S)return S.show.includes(o.id);
+ if(st>=4&&st<=8)return o.drawer!==null||(!!o.anchor&&/^d[01]/.test(o.anchor));
+ if(o.anchor)return inScene(objectById[o.anchor],st);
+ if(o.drawer!==null)return st>=14&&!(st===15&&o.drawer===1);
+ if(o.staging&&st<o.join)return false;
+ return true}
+const visibleIn=(o,st)=>st===0?!o.fastener:isVisible(o,st)&&inScene(o,st);
+function poseOf(o,st,p){
+ if(st===0)return {p:o.drawer!==null?add(drawerBase(o.drawer),o.dlocal):o.anchor?add(pieceTransform(objectById[o.anchor],18,1),o.anchorOffset):o.pos,r:0};
+ const ov=STAGE[st]&&STAGE[st].pose[o.id];
+ if(o.anchor){const par=poseOf(objectById[o.anchor],st,p);let off=o.anchorOffset;if(ov&&ov.off)off=add(off,ov.off);if(st===o.intro)off=add(off,mix(o.spawn,[0,0,0],smooth(p)));return {p:add(par.p,rotY(off,par.r)),r:par.r}}
+ if(ov&&ov.pos){let q=ov.pos;if(st===o.intro)q=add(q,mix(o.spawn,[0,0,0],smooth(p)));return {p:q,r:ov.r||0}}
+ return {p:pieceTransform(o,st,p),r:0}}
 const canvas=$('scene'),ctx=canvas.getContext('2d',{alpha:false});
-let W=400,H=300,dpr=1,padT=50,padB=60,padR=0,projScale=40,cx=200,cy=150;
+let W=400,H=300,dpr=1,padT=50,padB=60,padR=0,projScale=40,cx=200,cy=150,userCam=false;
 const cam={yaw:.57,pitch:.36,zoom:1,focus:[0,3,0]};let wanted={...cam,focus:[...cam.focus]};
-function syncCamera(){const s=STEPS[step];wanted={yaw:s.cam.yaw,pitch:s.cam.pitch,zoom:s.cam.zoom,focus:[...s.focus]}}
+function viewArea(){const effH=Math.max(H*.55,H-padT*.6-padB*.8),effW=Math.max(W*.6,W-padR);return {effW,effH,base:Math.min(effW/9.3,effH/8.5)}}
+function camVectors(yaw,pitch){const ca=Math.cos(yaw),sa=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);return {right:[ca,0,sa],up:[sa*sp,cp,-ca*sp]}}
+// Enquadra automaticamente as peças da tarefa (com folga), em vez de um zoom fixo.
+function syncCamera(){userCam=false;const s=STEPS[step],S=STAGE[step],yaw=S?S.cam.yaw:s.cam.yaw,pitch=S?S.cam.pitch:s.cam.pitch;
+ if(step===0||s.isFinal){wanted={yaw,pitch,zoom:s.cam.zoom,focus:[...s.focus]};return}
+ const list=objects.filter(o=>visibleIn(o,step)&&!o.fastener);
+ const mn=[1e9,1e9,1e9],mx=[-1e9,-1e9,-1e9];
+ for(const o of list){const ps=poseOf(o,step,1);for(const m of o.meshes){let e;if(m.kind==='box')e=[m.w/2,m.h/2,m.d/2];else{const a=m.length/2;e=m.axis==='x'?[a,m.r,m.r]:m.axis==='y'?[m.r,a,m.r]:[m.r,m.r,a]}
+  for(let i=0;i<8;i++){const c=add(rotY([m.x+(i&1?e[0]:-e[0]),m.y+(i&2?e[1]:-e[1]),m.z+(i&4?e[2]:-e[2])],ps.r),ps.p);for(let k=0;k<3;k++){mn[k]=Math.min(mn[k],c[k]);mx[k]=Math.max(mx[k],c[k])}}}}
+ const center=mix(mn,mx,.5),{right,up}=camVectors(yaw,pitch);let ex=.4,ey=.4;
+ for(let i=0;i<8;i++){const d=[(i&1?mx[0]:mn[0])-center[0],(i&2?mx[1]:mn[1])-center[1],(i&4?mx[2]:mn[2])-center[2]];ex=Math.max(ex,Math.abs(d[0]*right[0]+d[2]*right[2]));ey=Math.max(ey,Math.abs(d[0]*up[0]+d[1]*up[1]+d[2]*up[2]))}
+ const {effW,effH,base}=viewArea();const zoom=Math.max(.3,Math.min(3.2,Math.min(effW*.42/(ex*base),effH*.41/(ey*base))));
+ wanted={yaw,pitch,zoom,focus:center}}
 function viewTransform(pt){const x=pt[0]-cam.focus[0],y=pt[1]-cam.focus[1],z=pt[2]-cam.focus[2],ca=Math.cos(cam.yaw),sa=Math.sin(cam.yaw),cp=Math.cos(cam.pitch),sp=Math.sin(cam.pitch);return [x*ca+z*sa,y*cp-z*ca*sp+x*sa*sp,y*sp+(z*ca-x*sa)*cp]}
 function project(pt){const p=viewTransform(pt);const f=Math.min(3,Math.max(.24,15/(15-p[2])));const sc=projScale*f;return [cx+p[0]*sc,cy-p[1]*sc,p[2]]}
 function normalFacing(n){const ca=Math.cos(cam.yaw),sa=Math.sin(cam.yaw),cp=Math.cos(cam.pitch),sp=Math.sin(cam.pitch);return -n[0]*sa*cp+n[1]*sp+n[2]*ca*cp}
 function shade(hex,mul){const v=parseInt(hex.slice(1),16),k=n=>Math.min(255,Math.max(0,Math.round(n*mul)));return `rgb(${k(v>>16)},${k((v>>8)&255)},${k(v&255)})`}
 function blendColor(a,b,t){const m=parseInt(a.slice(1),16),n=parseInt(b.slice(1),16);const ch=s=>Math.round(((m>>s)&255)*(1-t)+((n>>s)&255)*t);return '#'+[ch(16),ch(8),ch(0)].map(v=>v.toString(16).padStart(2,'0')).join('')}
 const BOX_FACES=[[[0,3,2,1],[0,0,-1],.83],[[4,5,6,7],[0,0,1],.96],[[0,4,7,3],[-1,0,0],.87],[[1,2,6,5],[1,0,0],.8],[[3,7,6,2],[0,1,0],1.13],[[0,1,5,4],[0,-1,0],.69]];
-function faceList(mesh,transform,o,polys,tint,hi){let vertex=[],faces;
+function faceList(mesh,pose,o,polys,tint,hi){let vertex=[],faces;
+ // Parafusos e ferragens da tarefa ficam maiores para serem vistos no celular.
+ if(o.fastener&&hi)mesh={...mesh,r:mesh.r*1.7,length:mesh.length*1.25};
  if(mesh.kind==='box'){
   const {x,y,z,w,h,d}=mesh,c=[x-w/2,x+w/2],q=[y-h/2,y+h/2],r=[z-d/2,z+d/2];vertex=[[c[0],q[0],r[0]],[c[1],q[0],r[0]],[c[1],q[1],r[0]],[c[0],q[1],r[0]],[c[0],q[0],r[1]],[c[1],q[0],r[1]],[c[1],q[1],r[1]],[c[0],q[1],r[1]]];faces=BOX_FACES;
  }else{
@@ -513,68 +548,80 @@ function faceList(mesh,transform,o,polys,tint,hi){let vertex=[],faces;
   for(let k=0;k<n;k++)vertex.push(point(k,-1),point(k,1));const l=[],r=[];for(let k=0;k<n;k++){const nx=(k+1)%n;faces.push([[k*2,nx*2,nx*2+1,k*2+1],[0,0,0],.9]);l.push(k*2);r.push(k*2+1)}
   faces.push([l,axis==='x'?[-1,0,0]:axis==='y'?[0,-1,0]:[0,0,-1],.79]);faces.push([r.reverse(),axis==='x'?[1,0,0]:axis==='y'?[0,1,0]:[0,0,1],1.07]);
  }
- const projected=vertex.map(v=>project(add(v,transform)));const col=tint?blendColor(mesh.col,COL.highlight,.15):mesh.col;const grain=mesh.kind==='box'&&GRAIN.has(o.id);
- for(const [idx,nrm,light] of faces){if(mesh.kind==='box'&&normalFacing(nrm)<-.18)continue;const pts=idx.map(i=>projected[i]);let depth=0;for(const p of pts)depth+=p[2];polys.push({pts,depth:depth/pts.length,col,light,hi,grain})}
+ const projected=vertex.map(v=>project(add(rotY(v,pose.r),pose.p)));const col=tint?(o.fastener?COL.highlight:blendColor(mesh.col,COL.highlight,.15)):mesh.col;const grain=mesh.kind==='box'&&GRAIN.has(o.id);
+ for(const [idx,nrm,light] of faces){if(mesh.kind==='box'&&normalFacing(rotY(nrm,pose.r))<-.18)continue;const pts=idx.map(i=>projected[i]);let depth=0;for(const p of pts)depth+=p[2];polys.push({pts,depth:depth/pts.length,col,light,hi,grain})}
 }
 function mix2(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]}
 function roundRect(x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
 function drawScene(){
- const effH=Math.max(H*.5,H-padT-padB),effW=Math.max(W*.6,W-padR);
- projScale=Math.min(effW/9.3,effH/8.5)*cam.zoom;cx=effW/2;cy=Math.max(padT,0)+effH/2-(effH-(H-padT-padB))/2;
+ const {effW,base}=viewArea();projScale=base*cam.zoom;cx=effW/2;cy=(padT*.6+H-padB*.8)/2;
  const g=ctx.createRadialGradient(W*.49,H*.42,10,W*.49,H*.48,Math.max(W,H)*.75);g.addColorStop(0,'#2a394a');g.addColorStop(.55,'#1b2838');g.addColorStop(1,'#111b27');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
  ctx.strokeStyle='#7891a514';ctx.lineWidth=1;ctx.beginPath();for(let x=-12;x<=12;x+=1.5){const a=project([x,-.22,-13]),b=project([x,-.22,13]);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}for(let z=-13;z<=13;z+=1.5){const a=project([-12,-.22,z]),b=project([12,-.22,z]);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}ctx.stroke();
  const s=STEPS[step],focus=new Set(step===0||s.isFinal?[]:FOCUS[step]),tint=progress>.15,all=[];
- if(step===0){for(const o of objects){if(o.fastener)continue;const tr=o.drawer!==null?add(drawerBase(o.drawer),o.dlocal):o.anchor?add(pieceTransform(objectById[o.anchor],18,1),o.anchorOffset):o.pos;all.push([o,tr])}}
- else for(const o of objects){if(!isVisible(o,step))continue;let tr=pieceTransform(o,step,progress);if(exploded){const dif=sub(tr,[0,3,0]),len=Math.hypot(...dif)||1;tr=add(tr,dif.map(t=>t/len*.42))}all.push([o,tr])}
- const polys=[];for(const [o,tr] of all){const f=focus.has(o.id);for(const m of o.meshes)faceList(m,tr,o,polys,f&&tint,f)}
+ for(const o of objects){if(!visibleIn(o,step))continue;const ps=poseOf(o,step,progress);if(exploded&&step>0){const dif=sub(ps.p,[0,3,0]),len=Math.hypot(...dif)||1;ps.p=add(ps.p,dif.map(t=>t/len*.42))}all.push([o,ps])}
+ const polys=[];for(const [o,ps] of all){const f=focus.has(o.id);for(const m of o.meshes)faceList(m,ps,o,polys,f&&tint,f)}
  polys.sort((a,b)=>a.depth-b.depth);
  for(const f of polys){const p=f.pts;if(p.length<3)continue;ctx.beginPath();ctx.moveTo(p[0][0],p[0][1]);for(let i=1;i<p.length;i++)ctx.lineTo(p[i][0],p[i][1]);ctx.closePath();ctx.fillStyle=shade(f.col,f.light);ctx.fill();ctx.strokeStyle=f.hi?'#75d9fa9c':'#4b372c72';ctx.lineWidth=f.hi?1.2:.65;ctx.stroke();
   if(f.grain&&p.length===4&&Math.abs(p[0][0]-p[2][0])+Math.abs(p[0][1]-p[2][1])>24){ctx.save();ctx.clip();ctx.strokeStyle='#4e2f1e12';ctx.lineWidth=.6;ctx.beginPath();for(let k=1;k<11;k++){const t=k/11,a=mix2(p[0],p[1],t),b=mix2(p[3],p[2],t);ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1])}ctx.stroke();ctx.restore()}
  }
- if(step>0&&!s.isFinal&&prefs.labels&&!exploded)drawLabels(all,focus);
+ if(step>0&&!s.isFinal&&prefs.labels&&!exploded&&progress>.6)drawLabels(all,focus);
 }
-function drawLabels(all,focus){const shown=[];ctx.save();ctx.font='700 12px system-ui,-apple-system,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
- for(const [o,tr] of all){if(!focus.has(o.id)||o.fastener||!o.meshes.length)continue;const p=project(add(tr,[0,.52,0]));if(p[0]<10||p[0]>W-10||p[1]<padT||p[1]>H-padB)continue;if(shown.some(q=>Math.hypot(q[0]-p[0],q[1]-p[1])<40))continue;shown.push(p);
-  const text=o.tag.split(' · ')[0],w=Math.max(26,ctx.measureText(text).width+14);ctx.beginPath();roundRect(p[0]-w/2,p[1]-12,w,24,7);ctx.fillStyle='#12445be6';ctx.fill();ctx.strokeStyle='#74ddfa';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle='#def8ff';ctx.fillText(text,p[0],p[1]+1)}
+// Etiquetas legíveis: nome completo da peça e quantidade de ferragens (ex.: "4× E").
+function drawLabels(all,focus){const boxes=[],items=[];ctx.save();ctx.font='700 11.5px system-ui,-apple-system,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+ for(const [o,ps] of all){if(!focus.has(o.id)||!o.meshes.length)continue;
+  if(o.fastener){let c=[0,0,0];for(const m of o.meshes)c=add(c,[m.x,m.y,m.z]);c=c.map(v=>v/o.meshes.length);items.push({pt:add(ps.p,rotY(c,ps.r)),text:`${o.meshes.length}× ${o.tag.split(' · ')[0]}`,gold:true,dy:-24})}
+  else items.push({pt:add(ps.p,[0,.2,0]),text:o.tag.replace(' · ',' – '),gold:false,dy:0})}
+ items.sort((a,b)=>a.gold-b.gold);const seen=new Set(),hit=(x,y,w,h)=>boxes.some(b=>x<b[0]+b[2]+4&&x+w+4>b[0]&&y<b[1]+b[3]+3&&y+h+3>b[1]);
+ for(const it of items){if(seen.has(it.text))continue;seen.add(it.text);const p=project(it.pt),w=Math.min(W-16,ctx.measureText(it.text).width+16),h=24,x=Math.max(8,Math.min(W-8-w,p[0]-w/2));
+  // Se a etiqueta bater em outra, tenta acima/abaixo antes de desistir.
+  let y=null;for(const off of [0,-30,30,-60,60]){const yy=p[1]+it.dy+off-h/2;if(yy>=padT&&yy+h<=H-padB&&!hit(x,yy,w,h)){y=yy;break}}
+  if(y===null)continue;boxes.push([x,y,w,h]);
+  if(it.gold){ctx.beginPath();ctx.moveTo(p[0],p[1]);ctx.lineTo(p[0],y+h<p[1]?y+h:y);ctx.strokeStyle='#f5c56f';ctx.lineWidth=1.2;ctx.stroke()}
+  ctx.beginPath();roundRect(x,y,w,h,8);ctx.fillStyle=it.gold?'#4a3712d9':'#12445bcc';ctx.fill();ctx.strokeStyle=it.gold?'#f5c56f':'#74ddfa';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle=it.gold?'#ffe3b0':'#e6f9ff';ctx.fillText(it.text,x+w/2,y+h/2+1)}
  ctx.restore()}
 function measurePads(){const v=$('viewer').getBoundingClientRect(),hd=document.querySelector('.view-label').getBoundingClientRect(),pb=document.querySelector('.playbar').getBoundingClientRect(),vc=document.querySelector('.view-controls');
  padT=Math.max(0,hd.bottom-v.top)+6;padB=Math.max(0,v.bottom-pb.top)+4;const r=vc.getBoundingClientRect();padR=r.width&&r.bottom>v.top+padT+20?Math.max(0,v.right-r.left):0}
 function resizeCanvas(){const r=canvas.getBoundingClientRect();W=Math.max(50,r.width);H=Math.max(50,r.height);dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
- const v=$('viewer');v.classList.toggle('compact',!v.classList.contains('full')&&H<255);measurePads();markDirty()}
+ const v=$('viewer');v.classList.toggle('compact',!v.classList.contains('full')&&H<255);measurePads();if(!userCam)syncCamera();markDirty()}
 new ResizeObserver(resizeCanvas).observe(canvas);window.addEventListener('resize',resizeCanvas);
 function updatePlaybar(){const pct=Math.round(progress*100);$('scrub').value=pct;$('timeLabel').textContent=pct+'%';$('pauseBtn').textContent=progress>=1||paused?'▶':'Ⅱ'}
 let lastT=performance.now();
 function frame(t){const dt=Math.min(.05,(t-lastT)/1000);lastT=t;
  if(progress<1&&!paused){progress=Math.min(1,progress+dt/2);dirty=true;updatePlaybar()}
  // Só redesenha quando algo muda: economiza bateria no celular.
- const k=Math.min(1,dt*4.8);let moving=false;
+ const k=Math.min(1,dt*6);let moving=false;
  for(const key of ['yaw','pitch','zoom']){const d=wanted[key]-cam[key];if(Math.abs(d)>1e-4){cam[key]+=d*k;moving=true}else cam[key]=wanted[key]}
  for(let a=0;a<3;a++){const d=wanted.focus[a]-cam.focus[a];if(Math.abs(d)>1e-4){cam.focus[a]+=d*k;moving=true}else cam.focus[a]=wanted.focus[a]}
  if(moving||dirty){drawScene();dirty=false}
  requestAnimationFrame(frame)}
 
-// Gestos: 1 dedo gira, 2 dedos fazem zoom, toque duplo volta à vista da tarefa.
+// Gestos: 1 dedo gira; 2 dedos fazem zoom e arrastam a vista; toque duplo reenquadra a tarefa.
+// No computador: roda = zoom, botão direito ou Shift + arrastar = mover.
 const pointers=new Map();let drag=null,pinch=null,tapStart=null,lastTap=0;
-const clampZoom=z=>Math.max(.37,Math.min(2.6,z));
-canvas.addEventListener('pointerdown',e=>{e.preventDefault();pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});try{canvas.setPointerCapture(e.pointerId)}catch(_){}
- if(pointers.size===1){drag={id:e.pointerId,x:e.clientX,y:e.clientY,yaw:wanted.yaw,pitch:wanted.pitch};pinch=null;tapStart={x:e.clientX,y:e.clientY,t:performance.now()}}
- else{const p=[...pointers.values()];pinch={dist:Math.max(12,Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y)),zoom:wanted.zoom};drag=null;tapStart=null}});
+const clampZoom=z=>Math.max(.25,Math.min(6,z));
+function panFrom(start,dx,dy){const {right,up}=camVectors(cam.yaw,cam.pitch),sc=viewArea().base*wanted.zoom;wanted.focus=[0,1,2].map(i=>start[i]-right[i]*dx/sc+up[i]*dy/sc)}
+function twoFinger(){const p=[...pointers.values()];return {d:Math.max(12,Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y)),x:(p[0].x+p[1].x)/2,y:(p[0].y+p[1].y)/2}}
+canvas.addEventListener('pointerdown',e=>{e.preventDefault();if(!prefs.hinted){prefs.hinted=true;savePrefs();$('modelHint').hidden=true;measurePads()}pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});try{canvas.setPointerCapture(e.pointerId)}catch(_){}userCam=true;
+ if(pointers.size===1){drag={id:e.pointerId,x:e.clientX,y:e.clientY,yaw:wanted.yaw,pitch:wanted.pitch,pan:e.button===2||e.shiftKey,focus:[...wanted.focus]};pinch=null;tapStart={x:e.clientX,y:e.clientY,t:performance.now()}}
+ else{pinch={...twoFinger(),zoom:wanted.zoom,focus:[...wanted.focus]};drag=null;tapStart=null}});
 canvas.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
- if(pointers.size>=2){const p=[...pointers.values()];if(pinch)wanted.zoom=clampZoom(pinch.zoom*Math.max(12,Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y))/pinch.dist);return}
- if(!drag||drag.id!==e.pointerId)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;wanted.yaw=drag.yaw-dx*.009;wanted.pitch=Math.max(-.08,Math.min(1.45,drag.pitch+dy*.007))});
+ if(pointers.size>=2){if(pinch){const f=twoFinger();wanted.zoom=clampZoom(pinch.zoom*f.d/pinch.d);panFrom(pinch.focus,f.x-pinch.x,f.y-pinch.y)}return}
+ if(!drag||drag.id!==e.pointerId)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+ if(drag.pan){panFrom(drag.focus,dx,dy);return}
+ wanted.yaw=drag.yaw-dx*.009;wanted.pitch=Math.max(-.08,Math.min(1.45,drag.pitch+dy*.007))});
 function pointerEnd(e){pointers.delete(e.pointerId);pinch=null;drag=null;
  if(tapStart&&e.type==='pointerup'&&Math.hypot(e.clientX-tapStart.x,e.clientY-tapStart.y)<10&&performance.now()-tapStart.t<300){const now=performance.now();if(now-lastTap<350){syncCamera();lastTap=0}else lastTap=now}
- tapStart=null;if(pointers.size===1){const [id,p]=[...pointers.entries()][0];drag={id,x:p.x,y:p.y,yaw:wanted.yaw,pitch:wanted.pitch}}}
+ tapStart=null;if(pointers.size===1){const [id,p]=[...pointers.entries()][0];drag={id,x:p.x,y:p.y,yaw:wanted.yaw,pitch:wanted.pitch,pan:false,focus:[...wanted.focus]}}}
 canvas.addEventListener('pointerup',pointerEnd);canvas.addEventListener('pointercancel',pointerEnd);
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
-canvas.addEventListener('wheel',e=>{e.preventDefault();wanted.zoom=clampZoom(wanted.zoom*(e.deltaY>0?.9:1.1))},{passive:false});
+canvas.addEventListener('wheel',e=>{e.preventDefault();userCam=true;wanted.zoom=clampZoom(wanted.zoom*(e.deltaY>0?.9:1.1))},{passive:false});
 // Bloqueia o zoom da página inteira no Safari ao fazer pinça sobre o 3D.
 ['gesturestart','gesturechange'].forEach(t=>$('viewer').addEventListener(t,e=>e.preventDefault()));
-$('frontBtn').onclick=()=>{wanted.yaw=0;wanted.pitch=.06};
-$('isoBtn').onclick=()=>{wanted.yaw=.57;wanted.pitch=.38};
-$('topBtn').onclick=()=>{wanted.yaw=.15;wanted.pitch=1.38};
-$('zoomInBtn').onclick=()=>{wanted.zoom=clampZoom(wanted.zoom*1.2)};
-$('zoomOutBtn').onclick=()=>{wanted.zoom=clampZoom(wanted.zoom/1.2)};
+$('frontBtn').onclick=()=>syncCamera();
+$('isoBtn').onclick=()=>{userCam=true;wanted.yaw+=Math.PI/2};
+$('topBtn').onclick=()=>{userCam=true;wanted.pitch=1.38};
+$('zoomInBtn').onclick=()=>{userCam=true;wanted.zoom=clampZoom(wanted.zoom*1.3)};
+$('zoomOutBtn').onclick=()=>{userCam=true;wanted.zoom=clampZoom(wanted.zoom/1.3)};
 $('explodeBtn').onclick=()=>{exploded=!exploded;$('explodeBtn').classList.toggle('on',exploded);markDirty();toast(exploded?'Peças separadas para inspeção':'Peças reunidas')};
 $('replayBtn').onclick=()=>{progress=0;paused=false;updatePlaybar()};
 $('pauseBtn').onclick=()=>{if(progress>=1){progress=0;paused=false}else paused=!paused;updatePlaybar();markDirty()};
@@ -711,8 +758,8 @@ window.addEventListener('keydown',e=>{if(layers.length){if(e.key==='Escape')clos
  if(e.target.matches('input,textarea'))return;
  if(e.key==='ArrowRight'){e.preventDefault();setStep(step+1)}else if(e.key==='ArrowLeft'){e.preventDefault();setStep(step-1)}else if(e.key===' '&&e.target.tagName!=='BUTTON'){e.preventDefault();$('replayBtn').click()}});
 
-syncCamera();Object.assign(cam,{yaw:wanted.yaw,pitch:wanted.pitch,zoom:wanted.zoom,focus:[...wanted.focus]});
-renderInterface();updatePlaybar();resizeCanvas();requestAnimationFrame(frame);
+if(prefs.hinted)$('modelHint').hidden=true;
+renderInterface();updatePlaybar();resizeCanvas();Object.assign(cam,{yaw:wanted.yaw,pitch:wanted.pitch,zoom:wanted.zoom,focus:[...wanted.focus]});requestAnimationFrame(frame);
 if(step>0)setTimeout(()=>toast(`Continuando da tarefa ${step+1} de ${N}`),400);
 if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script>
